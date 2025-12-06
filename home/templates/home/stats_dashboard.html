@@ -1,0 +1,86 @@
+{% extends "wagtailadmin/base.html" %}
+{% load static wagtailuserbar %}
+{% block titletag %}Editor Dashboard{% endblock %}
+
+{% block content %}
+{% wagtailuserbar %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<div class="dashboard-wrapper">
+
+    <div class="dashboard-header">
+        <h1>Editor Dashboard</h1>
+        <p>Overview of content performance and editorial activity.</p>
+    </div>
+
+    <!-- Cards -->
+    <div class="stats-grid">
+
+        <div class="stat-card live">
+            <h3>Total Live Posts</h3>
+            <p>{{ total_posts }}</p>
+        </div>
+
+        <div class="stat-card draft">
+            <h3>Draft Posts</h3>
+            <p>{{ total_drafts }}</p>
+        </div>
+
+        <div class="stat-card latest">
+            <h3>Latest Publication</h3>
+            <p style="font-size: 20px; font-weight: 600;">
+                {% if latest_post_date %}
+                {{ latest_post_date|date:"j F Y" }}
+                {% else %}
+                No posts yet
+                {% endif %}
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="charts-container">
+
+        <div class="chart-box">
+            <h2>Posts by Author</h2>
+            <div class="chart-wrapper">
+                <canvas id="authorChart"></canvas>
+            </div>
+        </div>
+
+
+
+        <div class="chart-box">
+            <h2>Posts Over Time</h2>
+            <div class="chart-wrapper">
+                <canvas id="timeChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-box viewport-size">
+            <h2>Top Editors</h2>
+            <div class="chart-wrapper">
+                <canvas id="topEditorsChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const authorLabels = {{ author_labels| safe }};
+    const authorData = {{ author_data| safe }};
+    const dateLabels = {{ date_labels| safe }};
+    const dateData = {{ date_data| safe }};
+    const topEditorLabels = {{ top_editor_labels| safe }};
+    const topEditorData = {{ top_editor_data| safe }};
+
+</script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+{% endblock %}
