@@ -11,7 +11,7 @@ def register_stats_url():
 
 @hooks.register('register_admin_menu_item')
 def register_stats_menu_item():
-    return MenuItem('Stats', reverse('stats_dashboard'), icon_name='chart-bar', order=1000)
+    return MenuItem('Stats', reverse('stats_dashboard'), icon_name='view', order=1000)
 # URL of your stats page
 # Nice icon for dashboard
 #  # Position in menu (high number = bottom)
